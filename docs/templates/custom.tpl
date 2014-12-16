@@ -10,17 +10,18 @@
 <meta charset="utf-8" />
 <title>{{resources['metadata']['name']}}</title>
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script src="static/js/ipython.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<script src="//localhost:8000/static/js/ipython.js"></script>
 
 <script>
 requirejs.config({
-	baseUrl : "js/",
+	baseUrl : "//localhost:8000",
 	paths : {
 		jquery : "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min",
 		underscore : "//underscorejs.org/underscore-min",
-		backbone : "//backbonejs.org/backbone-min"
+		backbone : "//backbonejs.org/backbone-min",
+        widgets : "static/js/widgets",
+        gmaps_views : "static/js/gmaps_views"
 	}
 })
 </script>
@@ -58,9 +59,6 @@ div#notebook {
   }
 }
 </style>
-
-<!-- Custom stylesheet, it must be in the same directory as the html file -->
-<link rel="stylesheet" href="custom.css">
 
 <!-- Loading mathjax macro -->
 {{ mathjax() }}

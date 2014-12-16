@@ -5,12 +5,13 @@ import jinja2
 
 output_cell_template = jinja2.Template("""
 <div id='cell-{{ cell_index }}'></div>
-<p>Hello test</p>
 <script>
 require(["{{ model_file_name }}"], function(model_module) {
-    model = new model_module.{{ model_name }}() ;
-    model.initialize_view($("#cell-{{ cell_index }}")) ;
-    model.view.render() ;
+    $(document).ready(function() { 
+        model = new model_module.{{ model_name }}() ;
+        model.initialize_view($("#cell-{{ cell_index }}")) ;
+        model.view.render() ;
+    }) ;
 }) ;
 </script>
 """)
