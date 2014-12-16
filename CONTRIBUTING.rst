@@ -106,45 +106,42 @@ notebook, or add a new one, make sure that you only commit the input cells.
 This can be done by following the recipe given in `this Stack Overflow answer
 <http://stackoverflow.com/a/20844506>`_: 
 
-1. Put the following script in a directory on your system path, for instance ``~/bin``,
-   saving it as ``ipynb_output_filter.py``::
-
-    #!/usr/bin/env python
-
-    import sys
-    import json
-
-    json_in = json.load(sys.stdin)
-    ipy_version = int(json_in["nbformat"])-1 # nbformat is 1 more than actual version.
-
-    def strip_output_from_cell(cell):
-        if "outputs" in cell:
-            cell["outputs"] = []
-        if "prompt_number" in cell:
-            cell["prompt_number"] = ''
-
-    if ipy_version == 2:
-        for sheet in json_in["worksheets"]:
-            for cell in sheet["cells"]:
-                strip_output_from_cell(cell)
-    else:
-        for cell in json_in["cells"]:
-            strip_output_from_cell(cell)
-
-    json.dump(json_in, sys.stdout, sort_keys=True)
-
-2. Make it executable using ``chmod +x ipynb_output_filter.py``. 
-3. Make sure the directory containing ``ipynb_output_filter.py`` is in the system
-   path. If not, add the following line to your ``.bashrc`` profile::
+1. Go to the ``scripts`` directory in the gmaps repository.
+2. Make the file ``ipynb_output_filter.py``  executable with 
+   ``chmod +x ipynb_output_filter.py``. 
+3. Put the ``scripts`` directory in the system
+   path by adding the following line to your ``.bashrc`` profile::
 
     export PATH=$HOME/bin:$PATH
 
-4. Create the file ``~/.gitattributes`` with the following content::
+4. Update your session to use the new ``.bashrc`` setting by entering
+   ``source .bashrc`` in the terminal.
+
+5. Create the file ``~/.gitattributes`` with the following content::
     
     *.ipynb    filter=dropoutput_ipynb
 
-5. Run the following commands::
+6. Run the following commands::
 
     git config --global core.attributesfile ~/.gitattributes
     git config --global filter.dropoutput_ipynb.clean ~/bin/ipynb_output_filter.py
     git config --global filter.dropoutput_ipynb.smudge cat
+
+To tell git to ignore outputs and prompt numbers for a particular notebook, 
+open the notebook, go to ``Edit > Edit Notebook Metadata``. A popup window will
+open containing the following JSON object::
+
+    {
+        "name" : "",
+        "signature" : "some long hash"
+    }
+
+Change this to::
+
+    {
+        "name" : "",
+        "signature" : "Remember to add a comma after this",
+        "vc" : { "suppress_outputs" : true }
+    }
+
+Then save the notebook.
