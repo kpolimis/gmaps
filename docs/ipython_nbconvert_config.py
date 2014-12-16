@@ -1,4 +1,5 @@
 
 conf = get_config()
 
-conf.Exporter.preprocessors = [ "exclude_preprocessor.SuppressOutputPreprocessor" ]
+conf.Exporter.preprocessors = [ "gmaps_preprocessors.SuppressOutputPreprocessor", 
+    "gmaps_preprocessors.ModelInsertPreprocessor" ]
