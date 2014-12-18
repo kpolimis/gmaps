@@ -11,11 +11,11 @@
 <title>{{resources['metadata']['name']}}</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
-<script src="//localhost:8000/static/js/ipython.js"></script>
+<script src="{{ resources['path_to_basedir'] }}/static/js/ipython.js"></script>
 
 <script>
 requirejs.config({
-	baseUrl : "//localhost:8000",
+	baseUrl : "{{ resources['path_to_basedir'] }}",
 	paths : {
 		jquery : "//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min",
 		underscore : "//underscorejs.org/underscore-min",

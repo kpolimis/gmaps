@@ -23,7 +23,7 @@ $(BUILD_DIR)/static/js/gmaps_views.js : $(GMAPS_ROOT_DIR)/gmaps/js/gmaps_views.j
 	cp $< $@
 
 $(BUILD_DIR)/%.html: $(SRC_DIR)/%.ipynb
-	ipython nbconvert $< --output $(@D)/$(*F)
+	python custom_nbconvert.py $< --output $(@D)/$(*F)
 
 clean:
 	rm -rf $(BUILD_DIR)
